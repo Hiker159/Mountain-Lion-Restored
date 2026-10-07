@@ -1,0 +1,17 @@
+(version 1)
+(allow default)
+; Backstop for this diagnostic build: protect the stock calendar and contacts.
+(deny file-read* file-write*
+    (subpath (param "STOCK_CALENDARS"))
+    (subpath (param "STOCK_ICAL_SUPPORT"))
+    (subpath (param "STOCK_CONTACTS")))
+(deny file-write* (literal (param "STOCK_ICAL_PREFS")))
+(deny mach-lookup
+    (global-name "com.apple.CalendarAgent")
+    (global-name "com.apple.CalendarAgent.proxy"))
+
+; This first background build is for local alarms, with no account syncing.
+(deny network-outbound)
+(deny process-exec
+    (subpath "/System/Library/Frameworks/CalendarStore.framework")
+    (subpath "/System/Library/PrivateFrameworks/CalendarAgent.framework"))

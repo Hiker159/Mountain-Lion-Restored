@@ -1,0 +1,60 @@
+RECURRING CALENDAR ALERT TEST — PREVIEW 01 OR 02
+
+Purpose: test exceptions to recurring events while restored Calendar is closed.
+This adds a diagnostic command only. It does not change apps, data, login
+settings or power settings. Allow about 20 minutes, keeping the laptop awake.
+
+SETUP
+1. Copy Test Recurring Alerts.command into the Calendar folder of your existing
+   restored-apps package. Keep the apps at their current location.
+2. Open restored Calendar using its Open Calendar.command. Confirm your local
+   calendar is visible. Use a disposable local calendar, not Contacts Birthdays.
+3. Run Test Recurring Alerts.command and leave its Terminal window open.
+
+CREATE THREE SEPARATE DAILY REPEATING SERIES
+Choose times at least 10 minutes ahead so you have time to finish all edits.
+Use timed events today (not all-day), repeat every day, and set one Message
+with Sound alert at the time of the event. Use short disposable titles:
+
+  Repeat Control: today at T
+  Repeat Moved:   today at T + 2 minutes
+  Repeat Deleted: today at T + 4 minutes
+
+For example, if it is 3:00, use 3:10, 3:12 and 3:14.
+Before changing anything, confirm that each series also appears tomorrow.
+
+EDIT ONLY TODAY'S OCCURRENCE
+Move Repeat Moved from T+2 to T+6 (3:12 to 3:16 in the example). When Calendar
+asks, choose Only This Event, not all/future events. Delete today's Repeat
+Deleted occurrence and again choose Only This Event. Leave Repeat Control alone.
+Check tomorrow: all three original occurrences should still exist at their
+original times. Today's moved event should appear only at its new time.
+If Calendar's choice differs or an edit changes the whole series, stop and
+report it rather than proceeding with an ambiguous setup.
+
+OBSERVE WITH CALENDAR CLOSED
+Quit Calendar using Command-Q before T. Do not stop its alert helper.
+Keep the laptop awake and do not change its clock. Record exact alert times
+and whether sound plays. Close notifications normally; do not snooze them.
+
+Expected:
+  T:   one Repeat Control alert with sound.
+  T+2: no Repeat Moved alert at its original time.
+  T+4: no Repeat Deleted alert.
+  T+6: one Repeat Moved alert with sound.
+
+After T+8, reopen Calendar with Open Calendar.command. Confirm today's exception
+edits persisted and tomorrow's three occurrences remain unchanged. This checks
+future event presence, not delivery of tomorrow's alerts; that remains a later
+longer-duration test.
+
+COLLECT
+Return to the waiting Terminal window, press Return and answer the five short
+questions. The command collects helper status/logs and available system/power
+messages without restarting the helper. Review and send Calendar-recurrence ZIP.
+Logs are supporting evidence; observed delivery and sound are essential.
+
+CLEANUP
+After collecting, delete the three test series (including their future events)
+so you do not receive daily test alerts. If you used a disposable calendar
+containing only these events, you may delete that calendar instead.

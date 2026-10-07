@@ -1,0 +1,11 @@
+(version 1)
+(allow default)
+; Backstop for this diagnostic build: protect the stock calendar and contacts.
+(deny file-read* file-write*
+    (subpath (param "STOCK_CALENDARS"))
+    (subpath (param "STOCK_ICAL_SUPPORT"))
+    (subpath (param "STOCK_CONTACTS")))
+(deny file-write* (literal (param "STOCK_ICAL_PREFS")))
+(deny mach-lookup
+    (global-name "com.apple.CalendarAgent")
+    (global-name "com.apple.CalendarAgent.proxy"))
