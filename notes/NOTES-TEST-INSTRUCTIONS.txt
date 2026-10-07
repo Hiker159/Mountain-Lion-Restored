@@ -1,0 +1,48 @@
+MOUNTAIN LION NOTES — MAVERICKS EXPERIMENT
+
+This is an experimental app, not a confirmed working port. The static comparison
+used Mavericks 10.9.5. No launch or saving test has been performed on Mavericks.
+
+FIRST TEST
+
+1. On your Mavericks laptop, create a temporary Standard user in System
+   Preferences > Users & Groups. Log into that user. Do not add iCloud, email,
+   or other Internet Accounts. This matters: the app retains com.apple.Notes
+   and can access the same Notes container as Apple's Notes within that user.
+2. Copy and unzip Mountain-Lion-Notes-Mavericks-Test.zip on that user's Desktop.
+   Keep the extracted folder together. Do not replace /Applications/Notes.app.
+3. Open Launch Notes Test.command inside the folder. If Finder blocks it,
+   Control-click that file and choose Open. Do not turn off Gatekeeper globally.
+   The launcher runs only on OS X 10.9 and writes a dated log beside itself.
+4. If Notes opens, check for the leather toolbar and torn-paper design. Create
+   a disposable local note, edit it, quit Notes, then run the launcher again
+   and check that the note survived. If no local notes account is available,
+   report that rather than signing into an account for this first test.
+5. Report the OS version, whether it opened, whether the old design appeared,
+   and whether the note survived quitting and reopening. Include the generated
+   Notes-test-*.log files. If it crashes, also copy the newest Notes*.crash file
+   from ~/Library/Logs/DiagnosticReports if one exists. If macOS blocks launch,
+   send the exact message.
+
+WHAT THIS BUILD DOES
+
+- Keeps Mountain Lion's Notes interface and original app version metadata.
+- Bundles Mountain Lion Notes, CoreMessage, IMAP, and Message frameworks inside
+  the app, and redirects their internal dependencies to those local copies.
+- Retains the original bundle identifier and entitlements, but uses fresh local
+  ad-hoc signatures. Apple-specific account permissions may still fail at runtime.
+- Includes only x86_64 code and uses SHA-1 signatures for the old OS.
+- Omits Message.framework's old Syncer.syncschema component because it imports
+  a symbol missing from Mavericks. Legacy Mail synchronization is not supported
+  by this experiment. Account migration and iCloud sync have not been tested.
+
+The included binaries passed the static exported-symbol check (2,689 imports)
+against the extracted Mavericks libraries and selected bundled frameworks.
+The app also passed signature and local dependency-path checks on the build Mac.
+These checks do not establish runtime or data compatibility.
+
+REMOVAL
+
+Quit Notes and delete the extracted test folder. Nothing is installed into the
+system frameworks or Apple's Applications folder. Test notes and preferences
+remain in the temporary user's home; delete that test user when no longer needed.
